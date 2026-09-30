@@ -32,6 +32,11 @@ export interface SupplyIssue {
   operator: string;
   specimenNo: string;
   issuedAt: number;
+  /**
+   * 批号（可选冗余）：断网两机分开录工序时，领用记录可能随对端档案带回。
+   * 合并按批号对账；老数据无此字段时以其所属批次的 lotNo 为准。
+   */
+  lotNo?: string;
 }
 
 export type SupplyLotDraft = Omit<SupplyLot, 'id' | 'issues'>;

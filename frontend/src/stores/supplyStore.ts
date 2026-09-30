@@ -29,7 +29,12 @@ export const useSupplyStore = create<SupplyState>((set, get) => ({
   async issue(id, payload) {
     const target = get().items.find((it) => it.id === id);
     if (!target) return;
-    const issue: SupplyIssue = { ...payload, id: newId('iss'), issuedAt: Date.now() };
+    const issue: SupplyIssue = {
+      ...payload,
+      lotNo: payload.lotNo ?? target.lotNo,
+      id: newId('iss'),
+      issuedAt: Date.now(),
+    };
     const next: SupplyLot = {
       ...target,
       qty: Math.max(0, target.qty - payload.qty),
